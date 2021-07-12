@@ -1,0 +1,36 @@
+- name: "Change default user {{ default_user }} password"
+  user:
+    name: "{{ default_user }}"
+    password: "{{ default_user_new_password | password_hash('sha512') }}"
+    update_password: always
+  tags: password
+  
+- name: "Create group {{ new_user }}"
+  group:
+    name: "{{ new_user }}"
+    gid: "{{ new_user_PGID }}"
+    state: present
+
+- name: "Create user {{ new_user }}"
+  user:
+    name: "{{ new_user }}"
+    password: "{{ new_user_password | password_hash('sha512') }}"
+    uid: "{{ new_user_PUID }}"
+    state: present
+    shell: /bin/bash
+    system: no
+    create_home: yes
+    generate_ssh_key: yes
+    groups: 
+      - "{{ new_user }}"
+      - "sudo"
+    update_password: on_create
+
+- name: "Set authorized key for users copying it from current user on Ansible controller"
+  ansible.posix.authorized_key:
+    user: "{{ item }}"
+    state: present
+    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+  with_items:
+    - "{{ new_user }}"
+    - "{{ default_user }}"
