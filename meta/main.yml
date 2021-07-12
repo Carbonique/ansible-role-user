@@ -1,0 +1,6 @@
+galaxy_info:
+  role_name: user
+  author: carbonique
+  description: Role for user setup
+  license: "license (MIT)"
+  min_ansible_version: 2.10
