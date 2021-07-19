@@ -1,0 +1,20 @@
+---
+# All vars are required
+
+#Username of the default user 
+default_user:
+
+#New password for the default user
+default_user_new_password:
+
+#Username of the new user 
+new_user:
+
+#Password for the new user
+new_user_password:
+
+#UID for the new user
+new_user_PUID:
+
+#GID for the new user 
+new_user_PGID:
