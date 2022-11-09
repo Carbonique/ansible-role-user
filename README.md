@@ -12,7 +12,7 @@ Additionally, the ssh key of the user executing the playbook will be copied to t
 Add the following to `requirements.yml`:
 
 ```
-- src: git@gitlab.com:carbonique/ansible-role-user.git
+- src: https://github.com/carbonique/ansible-role-user.git
   scm: git
   name: user
   version: #Leave empty for latest. To download a specific version: use the tag as listed in repo
